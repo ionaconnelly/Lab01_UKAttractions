@@ -181,7 +181,7 @@ All values in the output are `NA`!
 
 _What does `NA` stand for and why are you getting this as your answer to the previous question._
 
-**Write your answer here**
+**Some values will have N/A as an answer so an average and median cannot be found as there are gaps in the data**
 
 
 
