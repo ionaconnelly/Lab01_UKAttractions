@@ -268,20 +268,14 @@ visitors %>%
 _Within each of the 4 nations, what is the proportion of tourist attractions that have free admission for all visitors?_
 
 ```{r Ex_m}
-visitors_with_nations <- visitors %>%
-  mutate(
-    nation = case_when(
-      region == "Northern Ireland" ~ "Northern Ireland",
-      region == "Scotland" ~ "Scotland",
-      region == "Wales" ~ "Wales",
-      TRUE ~ "England"
-    )
-  )
 
 visitors_with_nations %>%
   group_by(nation) %>%
-  filter(admission=="Free")
-count()
+  count(admission) %>%
+  mutate(percentage=(100*n)/sum(n)) %>%
+  filter(admission == "Free") %>%
+  arrange(desc(percentage))
+  
 
 
 ```
@@ -294,6 +288,12 @@ _Calculate the percentage change in visitor admissions from 2021 to 2022. Of the
 ```{r Ex_n}
 # Write your code here
 
+visitors_with_nations %>%
+  mutate(percentageChange= (((n_2022-n_2021)/n_2021)*100)) %>%
+  filter(nation=="Scotland") %>%
+  group_by(admission) %>%
+  summarise(meanPercentageChange=mean(percentageChange, na.rm=TRUE)) %>%
+  arrange(meanPercentageChange)
 
 
 ```
